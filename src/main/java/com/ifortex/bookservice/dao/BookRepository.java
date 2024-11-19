@@ -27,39 +27,7 @@ public class BookRepository {
 
         return entityManager.createQuery(criteriaQuery).getResultList();
     }
-    public Map<String, Long> getBooks() {
-        List<Book> bookList = getAllBooks();
 
-        Map<String, Long> statistic = new LinkedHashMap<>();
-
-        for (Book book : bookList) {
-            Set<String> genres = book.getGenres();
-            List<String> genreList = new ArrayList<>(genres);
-            StringBuilder genreKeyBuilder = new StringBuilder();
-            for (String genre : genreList) {
-                if (genreKeyBuilder.length() > 0) {
-                    genreKeyBuilder.append(",");
-                }
-                genreKeyBuilder.append(genre);
-            }
-            String genreKey = genreKeyBuilder.toString();
-
-            if (statistic.containsKey(genreKey)) {
-                statistic.put(genreKey, statistic.get(genreKey) + 1);
-            } else {
-                statistic.put(genreKey, 1L);
-            }
-        }
-
-        List<Map.Entry<String, Long>> entryList = new ArrayList<>(statistic.entrySet());
-        entryList.sort((entry1, entry2) -> Long.compare(entry2.getValue(), entry1.getValue()));
-
-        Map<String, Long> sortedStatistic = new LinkedHashMap<>();
-        for (Map.Entry<String, Long> entry : entryList) {
-            sortedStatistic.put(entry.getKey(), entry.getValue());
-        }
-        return sortedStatistic;
-    }
 
 
 
