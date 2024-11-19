@@ -14,6 +14,7 @@ import java.util.Map;
 public class BookServiceImpl implements BookService {
     @Autowired
     BookRepository bookRepository;
+
     @Override
     public Map<String, Long> getBooks() {
         return bookRepository.getBooks() ;
@@ -21,6 +22,7 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public List<Book> getAllByCriteria(SearchCriteria searchCriteria) {
-        return null;
+
+        return bookRepository.getAllByCriteria(searchCriteria);
     }
 }
